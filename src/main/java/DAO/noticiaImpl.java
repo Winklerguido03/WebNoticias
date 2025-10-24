@@ -1,5 +1,6 @@
 package DAO;
 
+import com.mysql.cj.jdbc.Blob;
 import entities.Categoria;
 import entities.Noticia;
 import interfaces.Dao;
@@ -13,19 +14,19 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
 
   private Connection conn=null;
 
-  private static final String SQL_GETALL="SELECT * FROM noticia WHERE administrador_idAdministrador=?";
-  private static final String SQL_INSERT="INSERT INTO noticia (titulo,descripcion,fecha,autor,categoria)"+
+  private static final String SQL_GETALL="SELECT * FROM noticia WHERE autor=?";
+  private static final String SQL_INSERT="INSERT INTO noticia (titulo,descripcion,fecha,categoria,autor)"+
                                          "VALUES (?,?,?,?,?)";
-  private static final String SQL_UPDATE="UPDATE noticia SET"+
-                                         "titulo=?, descripcion=?, fecha=?, administrador_idAdministrador=?, fecha=? ,imagen?";
+  private static final String SQL_UPDATE="UPDATE noticia SET "+
+                                         "titulo=?, descripcion=?, fecha=?, categoria=?, autor=? "+ "WHERE idNoticia=?";
   private static final String SQL_DELETE="DELETE FROM noticia WHERE idNoticia=?";
-  private static final String SQL_GETBYID="SELECT * FROM autos WHERE idNoticia = ?";
-
+  private static final String SQL_GETBYID="SELECT * FROM noticia WHERE idNoticia = ?";
+  private static final String SQL_LISTARPORCATEGORIA="SELECT * FROM noticia WHERE categoria=?";
 
 
   @Override
   public List<Noticia> getAll(Integer admininistrador_idAdministrador) {
-    conn=obtenerConexion();
+    Connection conn=obtenerConexion();
 
     List<Noticia> listaNoticias=new ArrayList<>();
     PreparedStatement pst=null;
@@ -45,7 +46,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
        noticia.setTitulo(rs.getString("titulo"));
        noticia.setDescripcion(rs.getString("descripcion"));
        noticia.setAutor(rs.getString("autor"));
-       noticia.setCategoria(Categoria.valueOf("categoria"));
+       noticia.setCategoria(Categoria.valueOf(rs.getString("categoria")));
 
        listaNoticias.add(noticia);
      }
@@ -68,7 +69,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
   public void insert(Noticia objeto) {
    Noticia noticia=objeto;
 
-   conn=obtenerConexion();
+   Connection conn=obtenerConexion();
 
    PreparedStatement pst=null;
 
@@ -79,8 +80,9 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
      pst.setString(1, noticia.getTitulo());
      pst.setString(2, noticia.getDescripcion());
      pst.setDate(3, noticia.getFecha());
-     pst.setString(4, noticia.getAutor());
-     pst.setString(5, noticia.getCategoria().name());
+     pst.setString(4, noticia.getCategoria().name());
+     pst.setString(5, noticia.getAutor());
+
 
      int resultado = pst.executeUpdate();
      if (resultado == 1) {
@@ -108,7 +110,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
 
   @Override
   public void update(Noticia objeto) {
-  conn=obtenerConexion();
+  Connection conn=this.obtenerConexion();
   Noticia noticia=objeto;
 
   if (this.existsById(noticia.getIdNoticia())){
@@ -116,7 +118,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
   PreparedStatement pst=null;
 
     try {
-      // ejecuto
+
       pst = conn.prepareStatement(SQL_UPDATE);
 
       pst.setString(1, noticia.getTitulo());
@@ -124,7 +126,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
       pst.setDate(3,noticia.getFecha());
       pst.setString(4,noticia.getCategoria().toString());
       pst.setString(5,noticia.getAutor());
-      pst.setString(6, noticia.getImagen());
+      pst.setInt(6,noticia.getIdNoticia());
 
       int resultado = pst.executeUpdate();
       if (resultado == 1) {
@@ -138,6 +140,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
 
     } catch (SQLException e) {
       System.out.println("Error al crear el statement");
+      e.printStackTrace();
     }
   }
 
@@ -168,7 +171,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
 
   @Override
   public Noticia getById(Integer id) {
-    conn = obtenerConexion();
+      Connection conn = obtenerConexion();
     // Se crea un statement
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -188,8 +191,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
         noticia.setDescripcion(rs.getString("descripcion"));
         noticia.setAutor(rs.getString("autor"));
         noticia.setFecha(rs.getDate("fecha"));
-        noticia.setCategoria(Categoria.valueOf("categoria"));
-        noticia.setImagen(rs.getString("imagen"));
+        noticia.setCategoria(Categoria.valueOf(rs.getString("categoria")));
       }
 
 
@@ -204,7 +206,7 @@ public class noticiaImpl implements Dao<Noticia,Integer>, adminConexion {
 
   @Override
   public boolean existsById(Integer id) {
-    conn = obtenerConexion();
+    Connection conn = obtenerConexion();
 
     PreparedStatement pst = null;
     ResultSet rs = null;

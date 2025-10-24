@@ -6,7 +6,6 @@
 <%@ page import="entities.Categoria" %>
 
 <%
-
    Categoria[] categorias = Categoria.values();
    request.setAttribute("listaCategorias",categorias);
 
@@ -15,7 +14,7 @@
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
- <link rel="stylesheet" href="css/styleFormNoticia.css">
+ <link rel="stylesheet" href="styles/styleFormNoticia.css">
 </head>
 <body>
 <header>
@@ -27,7 +26,7 @@
    <div class="formulario">
 
 <h2>PUBLICAR NOTICIA</h2>
-<form action="seNoticia" method="POST" enctype="multipart/">
+<form action="seNoticia" method="POST">
 
 <input type="hidden" name="txtId" id="txtId" value="-1" />
 <input type="hidden" name="operacion" id="operacion" value="nuevo" />
@@ -53,9 +52,6 @@
 <br>
 <label for="txtFecha">FECHA</label>
 <input type="date" name="txtFecha" id="txtFecha"  placeholder="Fecha" required />
-<br>
-<label for="txtImagen">IMAGEN</label>
-<input type="file" name="txtImagen" id="txtImagen" accept="image/*" placeholder="Imagen" />
 <br>
 <input class="btn" type="submit" value="Enviar" />
 

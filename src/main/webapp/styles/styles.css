@@ -43,6 +43,14 @@ a{
   text-decoration:none;
 }
 
+main{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
 .offcanvas-title{
   color: #0056b3;
   font-weight: bold;
@@ -69,4 +77,27 @@ a{
 .seccion:hover {
   color: #0056b3;
   margin-left: 4px;
+}
+
+.card{
+border: none;
+}
+
+img{
+border:none;
+}
+
+.tituloNoticia{
+color: black;
+font-size: 25px;
+font-weight: bolder;
+}
+
+.tituloNoticia:hover{
+  text-decoration: underline;
+}
+
+span{
+  font-weight: bolder;
+  color: #0056b3;
 }

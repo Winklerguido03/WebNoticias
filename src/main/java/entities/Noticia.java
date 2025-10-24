@@ -1,5 +1,7 @@
 package entities;
 
+import com.mysql.cj.jdbc.Blob;
+
 import java.sql.Date;
 
 public class Noticia {
@@ -10,9 +12,17 @@ public class Noticia {
   private Categoria categoria;
   private String autor;
   private Date fecha;
-  private String imagen;
 
   public Noticia(){}
+
+  public Noticia(int idNoticia,String titulo,String descripcion,Categoria categoria,String autor,Date fecha){
+    this.idNoticia=idNoticia;
+    this.titulo=titulo;
+    this.descripcion=descripcion;
+    this.categoria=categoria;
+    this.autor=autor;
+    this.fecha=fecha;
+  }
 
   public Noticia(String titulo,String descripcion,Categoria categoria,String autor){
     this.titulo=titulo;
@@ -69,14 +79,6 @@ public class Noticia {
     this.fecha = fecha;
   }
 
-  public String getImagen() {
-    return imagen;
-  }
-
-  public void setImagen(String imagen) {
-    imagen = imagen;
-  }
-
   @Override
   public String toString() {
     return "Noticia{" +
@@ -86,7 +88,6 @@ public class Noticia {
         ", categoria=" + categoria +
         ", autor='" + autor + '\'' +
         ", fecha=" + fecha +
-        ", imagen=" + imagen +
         '}';
   }
 }
