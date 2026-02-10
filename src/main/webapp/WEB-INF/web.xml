@@ -1,0 +1,64 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+  <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>seLogin</servlet-name>
+    <servlet-class>servlets.seLogin</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>seNoticia</servlet-name>
+    <servlet-class>servlets.seNoticia</servlet-class>
+  </servlet>
+    <servlet>
+        <servlet-name>seAccesoAdmin</servlet-name>
+        <servlet-class>servlets.seAccesoAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>seNoticiaCompleta</servlet-name>
+        <servlet-class>servlets.seNoticiaCompleta</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>seFormNoticia</servlet-name>
+        <servlet-class>servlets.seFormNoticia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>seEditarNoticia</servlet-name>
+        <servlet-class>servlets.seEditarNoticia</servlet-class>
+    </servlet>
+  <servlet-mapping>
+    <servlet-name>seNoticia</servlet-name>
+    <url-pattern>/seNoticia</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>seLogin</servlet-name>
+        <url-pattern>/seLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>seAccesoAdmin</servlet-name>
+        <url-pattern>/seAccesoAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>seNoticiaCompleta</servlet-name>
+        <url-pattern>/seNoticiaCompleta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>seFormNoticia</servlet-name>
+        <url-pattern>/seFormNoticia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>seEditarNoticia</servlet-name>
+        <url-pattern>/seEditarNoticia</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>seNoticia</welcome-file>
+    </welcome-file-list>
+
+</web-app>
